@@ -1,0 +1,164 @@
+/*版心 start*/
+.w {
+	width: 1000px;
+	margin: 0 auto;
+}
+/*版心 end*/
+
+/*header start*/
+/*topBar start*/
+.topBar {
+	height: 31px;
+	background-color: #E7E7E7;
+	line-height: 31px;
+}
+.fl {
+	float: left;
+}
+.fr {
+	float: right;
+}
+.topBar .collection {
+	background: url(../images/icon/黄色五角星.jpg) left center no-repeat;
+	padding-left: 19px;
+	font-weight: bold;
+}
+.topBar a {
+	color: #656565;
+	text-decoration: none;
+}
+.topBar a:hover {
+	color: red;
+}
+/*topBar end*/
+/*logo栏 start*/
+/*logo*/
+.logoBar {
+	height: 85px;
+	background-color: #1D7AD9;
+}
+.logoBar .logo {
+	padding-left: 41px;
+	padding-top: 13px;;
+}
+/*search*/
+.logoBar .search_box {
+	width: 430px;
+	padding-top: 23px;
+	padding-left: 185px;
+}
+.logoBar .search_box .search_text {
+	width: 350px;
+	height: 35px;
+	padding: 0 5px;
+	background-color: #FFF;
+	height: 35px;
+	line-height: 35px/9;/*ie css hack*/
+}
+.logoBar .search_box .search_btn {
+	width: 70px;
+	height: 35px;
+	font-size: 14px;
+	font-family: "Microsoft YaHei", "微软雅黑";
+	background-color: #FF8C00;
+}
+/*购物车*/
+.logoBar .shopCar {
+	width: 145px;
+	height: 35px;
+	background-color: #FF8C00;
+	margin-top: 23px;
+	font: 14px/35px "Microsoft YaHei", "微软雅黑";
+	color: #FFF;
+	margin-right: 59px;
+}
+.logoBar .shopCar .shopText {
+	/*font-size: 14px;
+	font-family: "Microsoft YaHei", "微软雅黑";
+	line-height: 35px;*/
+	width: 87px;
+	height: 35px;
+	border-right: 1px solid #E27A00;
+	background: url(../images/icon/购物车图标.jpg) 10px center no-repeat;
+	text-indent: 40px;
+}
+.logoBar .shopCar .shopNum {
+	width: 27px;
+	height: 35px;
+	border-left: 1px solid #FF9C01;
+	background: url(../images/icon/箭头.jpg) 33px center no-repeat;
+	text-align: right;
+	padding-right: 29px;
+}
+/* logo栏 end */
+/*navBox start*/
+.navBox {
+	height: 35px;
+	background-color: #1369C0;
+	color: #FFF;
+}
+.navBox .shopClass {
+	width: 190px;
+}
+.navBox .shopClass h3 {
+	text-align: center;
+	line-height: 35px;
+}
+.navBox .shopClass i {
+	display: inline-block;
+	width: 11px;
+	height: 7px;
+	overflow: hidden;
+	background: url(../images/icon/三角箭头.jpg) left center no-repeat;
+	margin-left: 11px;
+}
+.navBox .shopClass,.nav  h3{
+	font-family: "Microsoft YaHei", "微软雅黑";
+}
+.navBox .nav {
+	line-height: 35px;
+}
+.navBox .nav li {
+	float: left;
+}
+.navBox .nav a {
+	display: inline-block;
+	height: 35px;
+	padding: 0 35px;
+	color: #FFF;
+	text-decoration: none;
+}
+.navBox .nav a:hover {
+	background-color: #4593FD;
+}
+/*navBox end*/
+/*header end*/
+
+
+/*footer star*/
+footer {
+	text-align: center;
+	background-color: #D4D4D4;
+	line-height: 24px;
+	padding: 50px 0;
+	margin-top: 25px;
+}
+footer i {
+	font-style: normal;
+	margin: 0 5px;
+}
+footer a {
+	text-decoration: none;
+	font-size: 14px;
+	color: #000;
+}
+footer a:hover {
+	color: #F60;
+}
+footer .web {
+	margin-top: 30px;
+}
+footer .web img{
+	margin: 0 12px;
+}
+/*footer end*/
