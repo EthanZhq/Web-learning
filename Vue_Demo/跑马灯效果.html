@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+</head>
+<body>
+	<div id="app">
+		<p>{{msg}}</p>
+		<input type="button" value="跑马灯开始" v-on:click="startMethod">
+		<input type="button" value="跑马灯停止" v-on:click="stopMethod">
+	</div>
+
+	<script>
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				msg: '这是一个跑马灯效果展示',
+				intervalId: null
+			},
+			methods: {
+				// 【重要】在开启定时器之前，先进行判断，避免出现多个定时器
+				// 如果出现多个定时器，后面的“停止定时器”的操作是无效的
+				startMethod: function() {
+					if(this.intervalId != null) return;
+
+					// 添加定时器，点击按钮后，让字符串连续滚动
+					this.intervalId = setInterval(() => {
+						// 获取msg第一个字符
+						var start = this.msg.substring(0,1);
+						// 获取后面所有的字符
+						var end = this.msg.substring(1);
+						// 重新拼接成新的字符串，并赋值给msg
+						this.msg = end + start;
+						console.log(this.msg);
+					},400);
+				},
+				stopMethod: function() {
+					// 停止定时器，点击按钮后，停止字符滚动
+					clearInterval(this.intervalId);
+					// 每当清除了定时器后，需要重新把intervalId置为null
+					this.intervalId = null;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

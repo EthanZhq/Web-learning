@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!--
+	（1）用户填写的数据单独存放在data属性里，并采用v-model进行双向绑定。
+	（2）用户把数据填好后，点击add按钮。此时需要增加一个点击事件的方法，将data中的数据放到list中（同时，清空文本框中的内容）。
+	（3）将数据展示出来。v-for有个特点：当list数组发生改变后，vue.js就会自动调用v-for重新将数据生成，这样的话，就实现了数据的自动刷新 -->
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		.tb {
+			width: 800px;
+			margin: 20px auto;
+			border-collapse: collapse;
+		}
+		.tb th {
+			background: #0094ff;
+			color: white;
+			font-size: 16px;
+			border: 1px solid black;
+			padding: 5px;
+		}
+		.tb tr td {
+			text-align: center;
+            font-size: 16px;
+            padding: 5px;
+            border: 1px solid black;
+		}
+		.formD {
+            width: 800px;
+            margin: 30px auto;
+        }
+
+        .formD button {
+            margin-left: 10px;
+        }
+	</style>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<div class="formD">
+			<label>
+				编号:
+				<input type="text" v-model="formData.id">
+			</label>
+			<label>
+				名称:
+				<input type="text" v-model="formData.name" @keyup.f2="addData">
+			</label>
+			<button @click="addData">添加</button>
+			<label>
+				搜索名称关键字：
+				<input type="text" v-model="keywords" v-focus>
+			</label>
+		</div>
+
+		<table class="tb">
+			<thead>
+				<tr>
+					<th>编号</th>
+					<th>名称</th>
+					<th>创建时间</th>
+					<th>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="item in search(keywords)" :key="item.id">
+					<td>{{item.id}}</td>
+					<td>{{item.name}}</td>
+					<td>{{item.ctime | dateFormat}}</td>
+					<!--绑定delete事件，根据括号里的参数进行删除-->
+					<td>
+						<a href="#" @click.prevent="delData(item.id)">删除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+
+<script>
+	//设置全局过滤器,进行时间格式化
+	Vue.filter('dateFormat', function(dateStr) {
+		var dt = new Date(dateStr);
+		var y = dt.getFullYear();
+		var m = (dt.getMonth() + 1).toString().padStart(2, '0')//string.prototype.padStart(maxlength,fillString='');填充字符串
+		var d = dt.getDate().toString().padStart(2, '0');
+		return `${y}-${m}-${d}`;
+	});
+
+	//自定义全局按键修饰符
+	Vue.config.keyCodes.f2 = 113;
+
+	//自定义全局指令
+	//directive(指令名称，对象：有一些指令相关的钩子函数)
+	//定义时候指令名称前不用加“v-”前缀，调用需要
+	Vue.directive('focus', {
+		bind: function(el) { //每当指令绑定到元素上的时候，会立即执行这个bind函数，只执行一次
+			// el.focus()
+		},
+		inserted: function(el) { //插入到dom中的时候，会执行 inserted 函数【触发一次】
+			el.focus();
+		},
+		updated:function(el) { //当VNode更新的时候，会执行updated 函数，可能触发多次
+
+		}
+	});
+
+	var vm = new Vue({
+		el: '#app',
+		data: {
+			list:
+			[
+			{id: 1, name: '奔驰', ctime: new Date},
+			{id: 2, name: '大众', ctime: new Date}
+			],
+			formData: {
+				id: '',
+				name: ''
+			},
+			keywords:''//搜索关键字
+		},
+		methods: {
+			//添加方法
+			addData: function() {
+				// 将数据追加到list
+				var car = {id: this.formData.id, name: this.formData.name, ctime: new Date()};
+				this.list.push(car);
+
+				// 清空页面的文本框的数据
+				this.formData.id = '';
+				this.formData.name = '';
+			},
+			//删除方法
+			delData: function(id) {
+				// 0 提醒用户是否要删除数据
+				if(!confirm('是否删除数据')) {
+					//当用户点击取消按钮的时候，应该阻断这个方法中的后面代码的继续执行
+					return;
+				}
+				// 1 调用list.findIndex()方法，根据传入的id获取这个要删除的数据的item
+				// 默认去遍历list集合，将集合中的每个元素传入到function的item里，
+				var index = this.list.findIndex(function(item) {
+					//根据item中的id属性去匹配传进来的id
+    				//如果是则返回true ；否返回false,继续下面的一条数据的遍历，以此类推
+					return item.id == id//如果返回true，那么findIndex方法会将这个item对应的index
+				});
+				// 2 调用list.slice(待删除索引，删除个数)
+				this.list.splice(index,1);
+			},
+			//关键字搜索方法
+			search: function(keywords) {
+				// var newList = []
+				// var newList = this.list.forEach(item => {
+				// 	if(item.name.indexOf(keywords) != -1) {
+				// 		newList.push(item)
+				// 	}
+				// })
+				// return newList
+				var newList = this.list.filter(item => {
+					// if(item.name.indexOf(keywords != -1))
+					if(item.name.includes(keywords)) {
+						return item;
+					}
+				});
+				return newList;
+			}
+		}
+	})
+</script>
+</html>
