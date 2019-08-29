@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	<!-- 2.自定义两组样式，来控制 transition 内部的元素实现动画 -->
+	<style>
+		.v-enter,
+		.v-leave-to {
+			opacity: 0;
+			transform: translateX(150px);
+		}
+		.v-enter-active,
+		.v-leave-active {
+			transition: all 0.8s ease;
+		}
+
+		.my-enter,
+		.my-leave-to {
+			opacity: 0;
+			transform: translateY(70px);
+		}
+		.my-enter-active,
+		.my-leave-active {
+			transition: all 0.8s ease;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- 需求：点击按钮 让h3显示；再次点击让h3隐藏 -->
+		<input type="button" value="toggle" @click="flag = !flag">
+		<!-- 1.使用 transition 元素。把 需要被动画控制的元素 包裹起来 -->
+		<transition>
+			<h3 v-if="flag">this is a h3</h3>
+		</transition>
+
+		<hr>
+
+		<input type="button" value="toggle2" @click="flag2 = !flag2">
+		<transition name="my">
+			<h3 v-if="flag2">this is a h6</h3>
+		</transition>
+	</div>
+
+	<script>
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				flag: false,
+				flag2: false,
+			},
+			methods: {},
+		});
+	</script>
+</body>
+</html>

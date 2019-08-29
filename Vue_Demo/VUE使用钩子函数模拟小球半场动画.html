@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	<style>
+		.ball {
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="快到碗里来" @click="flag = !flag">
+		<transition @before-enter="beforeEnter" @enter="enter" @after-enter="afterEnter">
+			<div class="ball" v-show="flag"></div>
+		</transition>
+	</div>
+
+	<script>
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				flag: false,
+			},
+			methods: {
+				//动画入场前，动画尚未开始
+				//可以设置元素开始动画之前的起始样式
+				beforeEnter: function(el) {
+					//设置小球开始动画前起始位置
+					el.style.transform = "translate(0, 0)";
+				},
+				//动画开始之后样式
+				//可以设置动画结束之后的结束状态
+				enter: function(el,done) {
+					el.offsetWidth;
+					el.style.transform = "translate(150px,450px)";
+					el.style.transition = 'all 1s ease';
+					done();
+				},
+				//动画完成会调用 afterenter
+				afterEnter: function(el) {
+					this.flag = !this.flag;
+				},
+			},
+		});
+	</script>
+</body>
+</html>

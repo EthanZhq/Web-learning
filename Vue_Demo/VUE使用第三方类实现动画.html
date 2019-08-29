@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+	<style>
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- 需求：点击按钮 让h3显示；再次点击让h3隐藏 -->
+		<input type="button" value="toggle" @click="flag = !flag">
+		<!-- 使用 ：duration=“毫秒值”设置动画时长 -->
+		<!-- <transition enter-active-class="animated bounceIn" leave-active-class=" animated bounceOut" :duration="400"> -->
+		<transition enter-active-class="animated bounceIn" leave-active-class=" animated bounceOut" :duration="{enter: 200, leave: 400}">
+			<h3 v-if="flag">this is a h3</h3>
+		</transition>
+	</div>
+
+	<script>
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				flag: false,
+				flag2: false,
+			},
+			methods: {},
+		});
+	</script>
+</body>
+</html>
