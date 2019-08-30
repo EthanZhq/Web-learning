@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>当前系统时间</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		#show {
+			margin: 300px 0 0 300px;
+		}
+	</style>
+	<script>
+		window.onload = function() {
+			showtime();
+		}
+		function checktime(i) {
+			if(i < 10) {
+				i = "0" + i;
+			}
+			return i;
+		}
+		setInterval(showtime, 1000);
+		function showtime() {
+			var theDay = new Date();
+			var year = theDay.getFullYear();
+			var month = theDay.getMonth() + 1;
+			var date = theDay.getDate();
+			var week = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+			var day = theDay.getDay();
+
+			var hour = theDay.getHours();
+			var minu = theDay.getMinutes();
+			var s = theDay.getSeconds();
+			minu = checktime(minu);
+			s = checktime(s);
+			document.getElementById('show').innerHTML = "北京时间:" + year + "年" + month + "月" + date + "日" + week[day] + hour + ":" + minu + ":" + s;
+		}
+	</script>
+</head>
+<body>
+	<section>
+		<article>
+			<div id="show">时间</div>
+		</article>
+	</section>
+</body>
+</html>

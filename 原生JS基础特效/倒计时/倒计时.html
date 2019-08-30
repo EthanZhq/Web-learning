@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>倒计时时差</title>
+	<script>
+		window.onload = function() {
+			var toDay = new Date();
+			var furtureTime = new Date("2020,6,6");
+			var lessTime = Math.ceil((furtureTime.getTime() - toDay.getTime()) / (24 * 60 * 60 * 1000));
+			document.getElementById('reserve').innerHTML = "高考倒计时:" + lessTime + "天";
+		}
+	</script>
+</head>
+<body>
+	<section>
+		<article>
+			<div id="reserve"></div>
+		</article>
+	</section>
+</body>
+</html>
