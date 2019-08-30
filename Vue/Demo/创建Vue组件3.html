@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<mycom3></mycom3>
+	</div>
+
+	<template id="tmpl">
+		<div>
+			<h3>这是通过 template 元素，在外部定义组件结构</h3>
+		</div>
+	</template>
+
+	<script>
+		Vue.component('mycom3', {
+			template: '#tmpl'
+		});
+
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {},
+			methods: {},
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<login></login>
+	</div>
+
+	<template id="tmpl">
+		<div>
+			<h3>这是一个私有组件</h3>
+		</div>
+	</template>
+
+	<script>
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {},
+			methods: {},
+			components: {
+				login: {
+					template: '#tmpl',
+				}
+			}
+		});
+	</script>
+</body>
+</html>
