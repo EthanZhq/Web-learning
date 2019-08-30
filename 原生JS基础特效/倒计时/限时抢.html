@@ -6,7 +6,7 @@
 	<script>
 		window.onload = function() {
 			showTime();
-		}
+		};
 		function showTime() {
 			var today = new Date();
 			var endTime = new Date("2019,11,10");
@@ -17,8 +17,8 @@
 			var s = parseInt(leftTime % 60);
 			document.getElementById("leftTime").innerHTML = day + "天" + h + "时" + m + "分" + s + "秒";
 			if(leftTime <= 0) {
-				document.getElementById("leftTime").innerHTML = "活动结束"；
-				return；
+				document.getElementById("leftTime").innerHTML = "活动结束";
+				return;
 			}
 			setTimeout(showTime, 1000);
 		}
