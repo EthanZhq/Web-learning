@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<input type="button" value="获取元素" @click="getElement">
+		<h3 id="myh3" ref="myh3">使用ref获取DOM元素和组件</h3>
+	</div>
+
+	<login ref="mylogin"></login>
+
+	<script>
+		var login = {
+			template: '登录界面',
+		};
+
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {},
+			methods: {
+				getElement: function() {
+
+					// ref 是 [refrence]  指类型 和 引用类型
+					console.log(this.$refs.myh3.innerText);
+				},
+			},
+			components: {
+				login,
+			},
+		});
+	</script>
+</body>
+</html>
