@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+
+		<cmt-box @funcson="loadComments"></cmt-box>
+
+		<ul class="list-group">
+			<li class="list-group-item" v-for="item in list" :key="item.id">
+				<span class="badge">评论人：{{item.username}}</span>
+				{{item.content}}
+			</li>
+		</ul>
+	</div>
+
+	<template id="tmpl">
+
+		<div>
+			<div class="form-group">
+				<label>评论人：</label>
+				<input type="text" class="form-control" v-model="username">
+			</div>
+			<div class="form-group">
+				<label>评论内容：</label>
+				<textarea class="form-control" v-model="content"></textarea>
+			</div>
+			<div class="form-group">
+				<input type="button" value="发表评论" class="btn btn-primary" @click="postComment">
+			</div>
+		</div>
+
+	</template>
+
+	<script>
+		var commentBox = {
+			data: function() {
+				return {
+					username: '',
+					content: '',
+				};
+			},
+			template: '#tmpl',
+			methods: {
+				//发表评论的方法
+				postComment: function() {
+					var comment = {id: Date.now(), username: this.username, content: this.content};
+					//从 localstorage 中获取数据
+					var list = JSON.parse(localStorage.getItem('cmts') || '[]');
+					list.unshift(comment);
+					//重新保存数据到 localstorage 上
+					localStorage.setItem('cmts', JSON.stringify(list));
+
+					this.$emit('funcson');
+
+					this.username = this.content = '';
+				},
+			},
+		};
+
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				list: [
+				{id: Date.now(), username: "李白", content: "天生我材必有用,千金散尽还复来。"},
+				{id: Date.now(), username: "无名氏", content: "强中自有强中手,一山更比一山高。"},
+				{id: Date.now(), username: "杜甫", content: "读书破万卷，下笔如有神。"},
+				]
+			},
+			created: function() {
+				this.loadComments();
+			},
+			methods: {
+				//从本地的 localstorage 中， 加载评论列表
+				loadComments: function() {
+					var list = JSON.parse(localStorage.getItem('cmts') || '[]');
+					this.list = list;
+				},
+			},
+			components: {
+				'cmt-box': commentBox,
+			},
+		});
+	</script>
+</body>
+</html>
