@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<com1 :parentmsg="msg"></com1>
+		<com2 @func="show"></com2>
+	</div>
+
+	<template id="lg">
+		<div>
+			<h3>这是第一个子组件 --- {{parentmsg}}</h3>
+		</div>
+	</template>
+
+	<template id="tmpl">
+		<div>
+			<h6>这是第二个子组件</h6>
+			<!-- 点击之后使用父组件方法 -->
+			<input type="button" value="子组件的点击按钮" @click="myClick">
+		</div>
+	</template>
+
+	<script>
+		var com2 = {
+			template: '#tmpl',
+			data: function() {
+				return {
+					list: [
+					{name: "大头儿子", age: 18},
+					{name: "小头爸爸", age: 40},
+					]
+				};
+			},
+			methods: {
+				myClick: function() {
+					this.$emit('func', this.list);
+				}
+			}
+		};
+
+		Vue.component('com2');
+
+		//创建 Vue 实例，得到 ViewModel
+		var vm = new Vue({
+			el:'#app',
+			data: {
+				msg: '这是父组件',
+			},
+			methods: {
+				show: function(data) {
+					this.msg = data;
+				},
+			},
+			components: {
+				com1: {
+					template: '#lg',
+					props: ['parentmsg'],
+				},
+				'com2': com2,
+			},
+		});
+	</script>
+</body>
+</html>
